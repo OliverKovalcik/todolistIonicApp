@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'IonicApp',
-  webDir: 'dist',
+  appId: 'com.todoapp.vueapp',
+  appName: 'To Do App',
+  webDir: 'public',
   bundledWebRuntime: false
 };
 
