@@ -6,6 +6,14 @@
                     <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
                 </ion-buttons>
                 <ion-title>{{pageTitle}}</ion-title>
+                <ion-button color="success" slot="end" :router-link="`/successful-todo`">
+                    {{statistic.successfulTasks}}
+                    <ion-icon slot="start" :icon="checkmark"></ion-icon>
+                </ion-button>
+                <ion-button color="danger" slot="end" :router-link="`/unsuccessful-todo`">
+                    {{statistic.unsuccessfulTasks}}
+                    <ion-icon slot="start" :icon="close"></ion-icon>
+                </ion-button>
             </ion-toolbar>
         </ion-header>
         <ion-content>
@@ -23,9 +31,13 @@ import {
     IonContent,
     IonBackButton,
     IonButtons,
- 
+    IonButton,
+    IonIcon,
+    
 } from '@ionic/vue'
-
+import {close, checkmark} from 'ionicons/icons';
+import { computed } from 'vue';
+import { useStore } from '../store';
 
 export default {
     props: {
@@ -35,6 +47,9 @@ export default {
         },
         pageDefaultBackLink: {
             type: String,
+        },
+        statistics: {
+            type: Object
         }
     },
     components: {
@@ -44,8 +59,18 @@ export default {
         IonContent,
         IonToolbar,
         IonBackButton,
+        IonIcon,
         IonButtons,
+        IonButton
+        
     },
+    setup(){
+        const store = useStore();
+        const statistic = computed(()=>store.state.statistics);
+        return {
+    close, checkmark,statistic            
+        }
+    }
   
   }
 

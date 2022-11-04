@@ -1,5 +1,5 @@
 <template>
-    <base-layout pageTitle="ToDoList">
+    <base-layout pageTitle="All Tasks">
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button :router-link="`/create-todo`">
                     <ion-icon :icon="add"></ion-icon>
@@ -38,17 +38,8 @@ export default  defineComponent ({
     setup() {
     const store = useStore();
     const handleCheckbox = (id: number) => store.commit("HANDLE_CHECKBOX", id);
-    const items = computed(()=>store.state.items)
+    const items = computed(()=>store.state.items.filter(item => item.isSoftDeleted === false && item.isSoftDone === false));
     return {add,items, handleCheckbox}
     },
-
-    // computed: {
-    //     items(){
-    //         const store = useStore();
-            
-    //     }
-    // },
-
-
 });
 </script>

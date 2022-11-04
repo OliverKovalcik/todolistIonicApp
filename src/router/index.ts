@@ -14,7 +14,15 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/edit-todo/:id',
     component: () => import('../pages/EditToDo.vue')
-  }
+  },
+  {
+    path: '/successful-todo',
+    component: () => import('../pages/SuccessfulPage.vue')
+  },
+  {
+    path: '/unsuccessful-todo',
+    component: () => import('../pages/UnSuccessfulPage.vue')
+  },
 ]
 
 const router = createRouter({

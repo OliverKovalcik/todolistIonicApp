@@ -46,7 +46,8 @@ export default {
         return maxValue+1;
     }; 
     const saveToDo = (title:string) => {
-        store.commit('CREATE_TO_DO', {id: generateId() , title: title, isChecked: false});
+        let newToDo: StateItem = {id: generateId(), title: title, isChecked: false, isSoftDone: false, isSoftDeleted: false};
+        store.commit('CREATE_TO_DO', newToDo);
         router.push('/');
 
     }
