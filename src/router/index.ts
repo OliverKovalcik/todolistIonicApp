@@ -5,15 +5,15 @@ import ToDoList from '../pages/ToDoList.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
-  }, 
-  {
-    path: '/home',
     component: ToDoList
   },
   {
-    path: '/home/detail/:id',
-    component: () => import('../pages/ItemDetail.vue')
+    path: '/create-todo',
+    component: () => import('../pages/CreateToDo.vue')
+  },
+  {
+    path: '/edit-todo/:id',
+    component: () => import('../pages/EditToDo.vue')
   }
 ]
 
