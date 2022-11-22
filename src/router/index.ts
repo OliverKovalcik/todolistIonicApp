@@ -23,6 +23,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/unsuccessful-todo',
     component: () => import('../pages/UnSuccessfulPage.vue')
   },
+  {
+    path: '/about-app',
+    component: () => import('../pages/AboutApp.vue')
+  },
+  {
+    path: '/statistics',
+    component: () => import('../pages/StatisticsPage.vue')
+  },
 ]
 
 const router = createRouter({

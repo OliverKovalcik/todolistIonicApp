@@ -1,26 +1,39 @@
 <template>
      <ion-page>
+        <MenuComponent :isMenuOpen="isMenuOpen" @toggle-menu="isMenuOpen=false"></MenuComponent>
         <ion-header>  
             <ion-toolbar>
                 <ion-buttons slot="start" v-if="pageDefaultBackLink">
-                    <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
+                    <ion-button :router-link="pageDefaultBackLink">
+                        <ion-icon :icon="arrowBack"></ion-icon>
+                    </ion-button>
                 </ion-buttons>
                 <ion-title>{{pageTitle}}</ion-title>
-                <ion-button color="success" slot="end" :router-link="`/successful-todo`">
-                    {{statistic.successfulTasks}}
-                    <ion-icon slot="start" :icon="checkmark"></ion-icon>
-                </ion-button>
-                <ion-button color="danger" slot="end" :router-link="`/unsuccessful-todo`">
-                    {{statistic.unsuccessfulTasks}}
-                    <ion-icon slot="start" :icon="close"></ion-icon>
-                </ion-button>
             </ion-toolbar>
         </ion-header>
         <ion-content>
             <slot />
-        </ion-content>
-    </ion-page>
+        </ion-content> 
+        <ion-card>
+            <div class="footer">
+            <div class="footer--box"  @click="toggleMenu">    
+                <ion-icon :icon="menu"></ion-icon>
+                <div>Menu</div>  
+            </div>
+
+            <ion-fab-button shape="circle" class="footer--box" :router-link="`/create-todo`">
+                <ion-icon :icon="add"></ion-icon>
+            </ion-fab-button>
+        
+            <div class="footer--box" @click="()=> router.push('/statistics')">    
+                <ion-icon :icon="statsChart"></ion-icon>
+                <div>Statistics</div>  
+            </div>
     
+        </div>
+        </ion-card>
+   
+    </ion-page>
 </template>
 <script lang="ts">
 import {
@@ -29,15 +42,16 @@ import {
     IonToolbar, 
     IonTitle, 
     IonContent,
-    IonBackButton,
     IonButtons,
     IonButton,
     IonIcon,
-    
+    IonFabButton,
+    IonCard    
 } from '@ionic/vue'
-import {close, checkmark} from 'ionicons/icons';
-import { computed } from 'vue';
-import { useStore } from '../store';
+import { arrowBack, menu, add, statsChart} from 'ionicons/icons';
+import { ref } from 'vue';
+import MenuComponent from './MenuComponent.vue'
+import { useRouter } from 'vue-router';
 
 export default {
     props: {
@@ -58,20 +72,22 @@ export default {
         IonTitle,
         IonContent,
         IonToolbar,
-        IonBackButton,
         IonIcon,
         IonButtons,
-        IonButton
-        
+        IonButton,
+        MenuComponent,
+        IonFabButton,
+        IonCard
+      
     },
     setup(){
-        const store = useStore();
-        const statistic = computed(()=>store.state.statistics);
+        const router = useRouter();
+        let isMenuOpen = ref(false);
+        const toggleMenu = ():boolean => isMenuOpen.value = !isMenuOpen.value;
         return {
-    close, checkmark,statistic            
+    arrowBack, menu, isMenuOpen, toggleMenu, add,statsChart, router            
         }
     }
-  
   }
 
 </script>

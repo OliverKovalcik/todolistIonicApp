@@ -3,10 +3,9 @@
     <ion-card>
         <ion-card-content>
     <ion-item>
-        <ion-label position="floating">Edit ToDo</ion-label>
-        <ion-input placeholder="Edit ToDo" v-model="title"></ion-input>
+        <ion-textarea placeholder="Edit ToDo description" v-model="description"></ion-textarea>
     </ion-item>
-    <ion-button expand="block" @click="editToDo(title)">Edit Your ToDo</ion-button>
+    <ion-button expand="block" @click="editToDo(description)">Edit Your ToDo</ion-button>
         </ion-card-content>
     </ion-card>
     </base-layout>
@@ -14,35 +13,34 @@
     <script lang="ts">
     import {
         IonItem,
-        IonLabel,
-        IonInput,
+        IonTextarea,
         IonButton,
         IonCard,
-        IonCardContent
+        IonCardContent,
         } from '@ionic/vue'
     import { useStore } from '../store';
     import { useRouter, useRoute } from 'vue-router'
+import { ref } from '@vue/reactivity';
     export default {
         components: {
             IonItem,
-            IonLabel,
-            IonInput,
+            IonTextarea,
             IonButton,
             IonCard,
-            IonCardContent
+            IonCardContent,    
         },
         setup () {
         const store = useStore();
-        const title = '';
-        const router = useRouter();
         const route = useRoute();
-
-        const editToDo = (title:string) => {
-             store.commit('EDIT_TO_DO', {title: title, id: Number(route.params.id)});
+        let currentItem = store.state.items.find(item=> item.id === Number(route.params.id));
+        const description = currentItem? currentItem.description : '';
+        const router = useRouter();
+        const date = ref('');
+        const editToDo = (description:string) => {
+             store.commit('EDIT_TO_DO', {description: description, id: Number(route.params.id)});
              router.push('/');
-    
         }
-        return {title, editToDo};
+        return {description, editToDo, date};
         },
     }
     </script>
