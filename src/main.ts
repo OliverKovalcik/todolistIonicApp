@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router';
 import {store, key} from './store';
 import BaseLayout from './components/BaseLayout.vue'
+//Import axios
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 import { IonicVue } from '@ionic/vue';
 
@@ -28,7 +31,8 @@ import './theme/scss/style.scss';
 
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
+  .use(router)
+  .use(VueAxios, axios);
 
 app.use(store, key);
 app.component('base-layout', BaseLayout);
