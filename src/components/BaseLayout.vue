@@ -3,12 +3,17 @@
         <MenuComponent :isMenuOpen="isMenuOpen" @toggle-menu="isMenuOpen=false"></MenuComponent>
         <ion-header>  
             <ion-toolbar>
-                <ion-buttons slot="start" v-if="pageDefaultBackLink">
+                <ion-buttons slot="start">
                     <ion-button :router-link="pageDefaultBackLink">
-                        <ion-icon :icon="arrowBack"></ion-icon>
+                        <ion-icon v-if="pageDefaultBackLink" :icon="arrowBack"></ion-icon>
                     </ion-button>
                 </ion-buttons>
                 <ion-title>{{pageTitle}}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button>
+                        <ion-icon ></ion-icon>
+                    </ion-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content>
